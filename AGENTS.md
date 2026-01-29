@@ -7,7 +7,9 @@ Framework-specific guidance (e.g. Laravel) is included only as conditional rules
 
 ## 0) Default Operating Procedure (always follow)
 
-1. Gather project context using by reading the README.md if you haven't already
+1. Gather project context
+   - Read the README.md.
+   - Check the "Documentation Index" in the `AGENTS.md` and read *only* relevant files in `docs/`.
 2. Confirm intent
    - Identify: scope, expected behavior, constraints, and definition of done.
    - If unclear: Feel free to ask questions before continuing
@@ -22,9 +24,10 @@ Framework-specific guidance (e.g. Laravel) is included only as conditional rules
    - Use the project’s documented commands (see README / project AGENTS.md).
 7. Summarize
    - Provide: what changed, files touched, how to test, and any risks.
-8. Docs
-   - Reading: Use the docs index in AGENTS.md to find topic-specific files under `docs/`. Only read the files relevant to the task you are working on; skip unrelated topics.
-   - Updating: When you learn persistent project knowledge, add or update topic-focused files under `docs/` (one topic per file). Update the docs index in AGENTS.md with links and when each file should be read.
+8. Update Docs
+   - When learning persistent project knowledge:
+     1. Create/Update a topic-specific file in `docs/` (one topic per file).
+     2. Add/Update the entry in the "Documentation Index" in the `AGENTS.md` using the template.
 
 ---
 
@@ -144,3 +147,4 @@ Framework-specific guidance (e.g. Laravel) is included only as conditional rules
 
 ### Laravel Tooling
 - If the project documents artisan usage, prefer the project’s generators and commands.
+
