@@ -148,3 +148,11 @@ Framework-specific guidance (e.g. Laravel) is included only as conditional rules
 ### Laravel Tooling
 - If the project documents artisan usage, prefer the project’s generators and commands.
 
+## 10) Documentation Index TEMPLATE
+
+Use the following structure for the Documentation Index in your project-specific `AGENTS.md`:
+
+## Documentation Index
+
+- [Topic Name](docs/filename.md): Description of what this file covers and when to read it.
+
