@@ -8,8 +8,9 @@ Framework-specific guidance (e.g. Laravel) is included only as conditional rules
 ## 0) Default Operating Procedure (always follow)
 
 1. Gather project context
-   - Read the README.md.
+   - Read the README.md (if it exists).
    - Check the "Documentation Index" in the `AGENTS.md` and read *only* relevant files in `docs/`.
+   - Important Use appropriate guidelines skill based on the current project if available.
 2. Confirm intent
    - Identify: scope, expected behavior, constraints, and definition of done.
    - If unclear: Feel free to ask questions before continuing

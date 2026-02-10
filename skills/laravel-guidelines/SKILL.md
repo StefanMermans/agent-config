@@ -1,6 +1,6 @@
 ---
 name: laravel-guidelines
-description: Laravel-specific guidelines you must always follow when building Laravel applications.
+description: When dealing with a Laravel project, these guidelines must always be followed.
 ---
 
 # Laravel Guidelines
