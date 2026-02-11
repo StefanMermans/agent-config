@@ -1,4 +1,5 @@
 ---
+name: documentation
 description: Always use this skill when you need to read, update or create documentation. This skill contains complete information about how the documentation is structured and how to use it.
 ---
 
