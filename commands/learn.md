@@ -19,6 +19,41 @@ Analyze the conversation and code changes to extract:
 ## Output Format
 
 Create or update a skill in `~/.opencode/skills/<skill-name>/SKILL.md`
+Some good templates and ideas for skills are:
+### a) coding guidline
+```php
+// ❌ BAD: some bad practice
+some code here
+
+// ✅ GOOD: good practice
+some code here
+```
+
+### b) list of practices and things to keep in mind
+- Clean coding practice
+- Standard practice
+   - sub practice
+   - explaination
+- document layout explaination
+
+### c) example directory layout
+-- folder
+   | -- sub folder
+   |    | -- file
+   | -- file
+   | -- file
+
+### d) code examples
+Always follow test pattern
+```typescript
+const standardCodeAppraoch = () => {
+  // some code here
+}
+
+const alternativeCodeApproach = () => {
+  // some code here
+}
+```
 
 ### Patterns Discovered
 
