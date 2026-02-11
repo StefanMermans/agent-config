@@ -1,4 +1,5 @@
 ---
+name: code-review
 description: Comprehensive security and quality review of uncommitted changes
 ---
 
