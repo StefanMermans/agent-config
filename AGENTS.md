@@ -1,11 +1,8 @@
-# Global AGENTS.md (Codex Guidance)
+# Global guidelines
 
-This file contains global instructions for Codex. Project-specific AGENTS.md overrides or extends this.
-Framework-specific guidance (e.g. Laravel) is included only as conditional rules and must not be applied to other projects.
+This file contains global instructions for Codex. Project-specific AGENTS.md and skills extend this.
 
----
-
-## 0) Default Operating Procedure (always follow)
+## Default Operating Procedure (always follow)
 
 1. Gather project context
    - Read the README.md (if it exists).
@@ -26,27 +23,3 @@ Framework-specific guidance (e.g. Laravel) is included only as conditional rules
 7. Summarize
    - Provide: what changed, files touched, how to test, and any risks.
 8. Update documentation using the update-documentation skill
-
-
-## 9) Framework-specific guidance (apply ONLY if the project uses Laravel)
-
-### Laravel Conventions
-- Prefer framework-native patterns:
-  - Use Form Requests for complex validation
-  - Use Policies for authorization
-  - Use Transactions for multi-step writes
-  - Avoid N+1 queries by eager loading (`with`, `load`)
-  - Use API Resources (`JsonResource`) for response shaping
-  - Prefer config/env over hardcoding
-- Prefer dependency injection where it improves testability/clarity.
-- Use php's stict typing
-- Use phpdoc for type templating when neccesary (for example with relations)
-
-### Laravel Testing Guidelines
-- Prefer Laravel’s default test runner and conventions.
-- Prefer factories/builders for test setup.
-- Always use `fake()` for values isntead of harcoding unless a fixed value is absolutely required.
-- Keep tests deterministic (freeze time when needed).
-
-### Laravel Tooling
-- If the project documents artisan usage, prefer the project’s generators and commands.

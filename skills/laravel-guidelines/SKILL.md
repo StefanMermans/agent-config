@@ -13,6 +13,8 @@ This document outlines best practices for building robust, maintainable, and mod
 -   **KISS**: Keep It Simple, Stupid. Avoid over-engineering.
 -   **DRY (Don't Repeat Yourself)**: Extract shared logic but be pragmatic. Duplication is cheaper than the wrong abstraction.
 -   **SOLID**: Adhere to SOLID principles, with particular emphasis on **Single Responsibility (SRP)** in classes and methods.
+-   **Strict Typing**: Use PHP's strict typing (`declare(strict_types=1);`) to ensure type safety.
+-   **Config/Env**: Prefer `config()` and `.env` variables over hardcoded strings to ensure flexibility across environments.
 
 ## 2. Modern PHP Features
 
@@ -22,24 +24,24 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
 -   **Readonly Properties**: Ensure immutability for value objects and DTOs.
 -   **Enums**: Use backed Enums for status fields and categories instead of constants or magic strings.
 -   **Match Expressions**: Use `match` instead of complex `switch` or `if/else` chains.
--   **Named Arguments**: improve readability for functions with many parameters (though prefer refactoring to parameter objects/DTOs if too many).
+-   **Named Arguments**: Improve readability for functions with many parameters (though prefer refactoring to parameter objects/DTOs if too many).
 
 ## 3. Architecture
 
 ### Controllers
 -   **Keep Thin**: Controllers should only handle HTTP concerns (validation, request parsing, response formatting).
 -   **Delegate Logic**: Business logic differs from HTTP logic. Delegate complex operations to **Services** or **Actions**.
--   **Response Consistency**: Ensure successful responses and error responses follow a consistent structural pattern across the API.
+-   **API Resources**: Use `JsonResource` for response shaping. This decouples the API response structure from the database model and ensures consistency.
 
 ### Services (Actions)
--   **Single Responsibility (SRP)**: A Service or Action should typically do **one thing well**. avoid "Manager" classes that become god-objects.
+-   **Single Responsibility (SRP)**: A Service or Action should typically do **one thing well**. Avoid "Manager" classes that become god-objects.
     -   *Good*: `CreateUserAction`, `ProcessPaymentService`.
     -   *Bad*: `UserService` (handling creation, deletion, reporting, notification, etc.).
 -   **Stateless**: Services should generally be stateless. Pass data via method arguments.
--   **Dependency Injection**: Inject dependencies via the constructor.
+-   **Dependency Injection**: Prefer dependency injection where it improves testability and clarity. Inject dependencies via the constructor.
 
 ### Validation (Form Requests)
--   **Always use Form Requests**: Do not validate in the controller.
+-   **Always use Form Requests**: Use Form Requests for complex validation. Do not validate in the controller.
 -   **Type Hinting**: Type-hint the Form Request in the controller method.
 -   **Business Rules**: Simple business rules (e.g., "email must be unique") belong in Form Requests. Complex state-dependent rules belong in the Service/Action.
 -   **Authorization**: Use the `authorize()` method in Form Requests for basic request authorization.
@@ -52,7 +54,7 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
     // AppServiceProvider.php
     Model::shouldBeStrict(!app()->isProduction());
     ```
--   **Eager Loading**: Prevent N+1 problems by eager loading relationships using `with()`.
+-   **Eager Loading**: Prevent N+1 problems by eager loading relationships using `with()` or `load()`.
     ```php
     // Bad
     $users = User::all();
@@ -66,6 +68,15 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
     User::select('id', 'name', 'email')->get();
     ```
 -   **Chunking**: Use `chunk()` or `cursor()` for initializing heavy processing on large datasets to keep memory usage low.
+
+### Transactions
+-   **Multi-step Writes**: Use DB Transactions (`DB::transaction(...)`) for operations involving multiple write steps (e.g., creating a user and their initial settings) to ensure data integrity.
+
+### Typing
+-   **Type Templating**: Use PHPDoc for type templating when necessary, especially for collections and relations, to aid static analysis and IDE autocompletion.
+    ```php
+    /** @var Collection<int, User> $users */
+    ```
 
 ### Scopes
 -   **Local Scopes**: Encapsulate common query logic into reusable local scopes. Naming should be readable and expressive.
@@ -130,6 +141,7 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
 
 ## 6. Testing
 
+-   **Runner**: Prefer Laravel’s default test runner and conventions.
 -   **AAA Pattern**: Structure all tests using **Arrange, Act, Assert**.
     ```php
     public function test_user_can_register() {
@@ -144,13 +156,18 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
         $this->assertDatabaseHas('users', ['email' => 'john@example.com']);
     }
     ```
--   **Factories**: Use specific factories for setting up strict state.
+-   **Factories**: Prefer factories and builders for test setup over manual instantiation.
     -   Use `state()` methods for variations (e.g., `User::factory()->admin()->create()`).
     -   Avoid massive manual creation of dependencies.
--   **Faking**: Use Laravel's fakes for external services to keep tests fast and deterministic.
+-   **Faking**: Always use `fake()` for values instead of hardcoding, unless a fixed value is absolutely required for the test logic.
+-   **Mocking**: Use Laravel's fakes for external services to keep tests fast and deterministic.
     -   `Mail::fake()`, `Event::fake()`, `Notification::fake()`, `Queue::fake()`.
     -   Assert against the fakes to verify interaction.
--   **Runner Agnostic**: Write tests that run compatibly with standard PHPUnit configuration.
+-   **Determinism**: Keep tests deterministic. Freeze time using `travelTo()` or similar helpers when testing time-sensitive features.
+
+## 7. Laravel Tooling
+
+-   **Generators**: If the project documents artisan usage, prefer the project’s generators and commands over creating files manually.
 
 ---
 **Note**: This guideline is a living document. Evolve it as the project matures and team patterns stabilize.
