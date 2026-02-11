@@ -64,6 +64,7 @@ This document outlines best practices for building robust, maintainable, and mod
     ```
 -   **Slots**: Use slots for flexible content injection. Named slots for multiple insertion points.
 -   **Provide/Inject**: Use for deep prop drilling, but prefer explicit props for direct parent-child communication. Key injection symbols to avoid collisions.
+-   **Splitting components**: Split components into smaller, focused components to improve maintainability and reusability. A components should't do too many things at once. Also if you feel the need to start adding comments for structure you should probably split the component into smaller ones instead of adding comments.
 
 ## 5. State Management
 
