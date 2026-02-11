@@ -1,6 +1,6 @@
 # Global guidelines
 
-This file contains global instructions for Codex. Project-specific AGENTS.md and skills extend this.
+This file contains global instructions. Project-specific AGENTS.md and skills extend this.
 
 ## Default Operating Procedure (always follow)
 
