@@ -1,9 +1,9 @@
 ---
-name: general-coding-guildelines
+name: general-coding-guidelines
 description: Always use this skill when dealing with code of any kind. Wether writing, reading, reviewing or something else. If it's code use this skill.
 ---
 
-## 1) Coding Principles (priority order)
+## 1) Coding Principles
 
 ### A) Correctness > Clarity > Consistency > Performance > Cleverness
 - Do not introduce clever abstractions.
@@ -81,3 +81,61 @@ description: Always use this skill when dealing with code of any kind. Wether wr
 
 - Only create global helpers when reuse is likely across the codebase.
 - If you add global helpers, document them in the project's README or AGENTS.md.
+
+
+## 9) Avoid code smells
+
+Watch for and avoid these anti-patterns:
+
+### a) Long Functions
+```typescript
+// ❌ BAD: Function > 50 lines
+function processMarketData() {
+  // 100 lines of code
+}
+
+// ✅ GOOD: Split into smaller functions
+function processMarketData() {
+  const validated = validateData()
+  const transformed = transformData(validated)
+  return saveData(transformed)
+}
+```
+
+### b) Deep Nesting
+```typescript
+// ❌ BAD: 3+ levels of nesting
+if (user) {
+  if (user.isAdmin) {
+    if (market) {
+      if (market.isActive) {
+        if (hasPermission) {
+          // Do something
+        }
+      }
+    }
+  }
+}
+
+// ✅ GOOD: Early returns
+if (!user) return
+if (!user.isAdmin) return
+if (!market) return
+if (!market.isActive) return
+if (!hasPermission) return
+
+// Do something
+```
+### c) Magic Numbers
+```php
+// ❌ BAD: Unexplained numbers
+if ($retryCount > 3) { }
+set_time_limit(500);
+
+// ✅ GOOD: Named constants
+$MAX_RETRIES = 3;
+$DEBOUNCE_DELAY_MS = 500;
+
+if ($retryCount > $MAX_RETRIES) { }
+set_time_limit($DEBOUNCE_DELAY_MS);
+```
