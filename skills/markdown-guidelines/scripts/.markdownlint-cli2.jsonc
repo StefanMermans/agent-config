@@ -1,0 +1,15 @@
+{
+    "$schema": "https://raw.githubusercontent.com/DavidAnson/markdownlint-cli2/refs/heads/main/schema/markdownlint-cli2-config-schema.json",
+    "config": {
+        // Default state for all rules
+        "default": true,
+        // Path to configuration file to extend
+        "extends": null,
+        // Allow inline html
+        "MD033": {
+            "enabled": false
+        },
+        // Disregard line length
+        "MD013": false
+    }
+}

@@ -12,21 +12,22 @@ npx skills add https://github.com/StefanMermans/agent-config --skill <skill-name
 
 ## Available Skills
 
-| Skill | Description |
-|-------|-------------|
-| `general-coding-guidelines` | Universal coding principles covering correctness, clarity, SOLID, DRY, and common code smells to avoid |
-| `react-guidelines` | Best practices for React applications with TypeScript, including state management, useEffect patterns, and performance |
-| `vue-guidelines` | Guidelines for Vue.js development using Composition API and TypeScript |
-| `laravel-guidelines` | Laravel best practices covering architecture, Eloquent, security, and testing |
-| `python-guidelines` | Python coding standards including logging best practices |
-| `documentation` | Guidelines for creating and maintaining project documentation |
+| Skill                       | Description                                                                                                            |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `general-coding-guidelines` | Universal coding principles covering correctness, clarity, SOLID, DRY, and common code smells to avoid                 |
+| `react-guidelines`          | Best practices for React applications with TypeScript, including state management, useEffect patterns, and performance |
+| `vue-guidelines`            | Guidelines for Vue.js development using Composition API and TypeScript                                                 |
+| `laravel-guidelines`        | Laravel best practices covering architecture, Eloquent, security, and testing                                          |
+| `python-guidelines`         | Python coding standards including logging best practices                                                               |
+| `documentation`             | Guidelines for creating and maintaining project documentation                                                          |
+| `markdown-guidelines`       | Guidelines for creating and editing markdown files with validation steps                                               |
 
 ## Available Commands
 
-| Command | Description |
-|---------|-------------|
-| `code-review` | Comprehensive security and quality review of uncommitted changes |
-| `learn` | Extract patterns and learnings from a session into reusable skills |
+| Command       | Description                                                        |
+| ------------- | ------------------------------------------------------------------ |
+| `code-review` | Comprehensive security and quality review of uncommitted changes   |
+| `learn`       | Extract patterns and learnings from a session into reusable skills |
 
 ## What's Included
 
