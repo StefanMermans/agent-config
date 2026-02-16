@@ -3,21 +3,26 @@ name: general-coding-guidelines
 description: Always use this skill when dealing with code of any kind. Wether writing, reading, reviewing or something else. If it's code use this skill.
 ---
 
+# General Coding Guidelines
+
 ## 1) Coding Principles
 
 ### A) Correctness > Clarity > Consistency > Performance > Cleverness
+
 - Do not introduce clever abstractions.
 - Prefer boring, standard solutions that match the repo style.
 
 ### B) DRY (practical)
+
 - Avoid repeating logic that might change.
-- Avoid multiple large chunks of code in a single function. 
+- Avoid multiple large chunks of code in a single function.
 - Extract shared logic into:
   1) private method (same class)
   2) dedicated service (bounded context)
   3) helper (only if truly global and reusable)
 
 ### C) SOLID (practical)
+
 - Classes/functions should have one reason to change.
 - Prefer composition over inheritance.
 - Depend on interfaces/contracts where it improves testability and flexibility.
@@ -76,18 +81,17 @@ description: Always use this skill when dealing with code of any kind. Wether wr
 - Do not run linters (eslint/phpstan/etc.) unless explicitly requested.
 - However, write code that would pass typical linters.
 
-
 ## 8) Global Helpers
 
 - Only create global helpers when reuse is likely across the codebase.
 - If you add global helpers, document them in the project's README or AGENTS.md.
-
 
 ## 9) Avoid code smells
 
 Watch for and avoid these anti-patterns:
 
 ### a) Long Functions
+
 ```typescript
 // ❌ BAD: Function > 50 lines
 function processMarketData() {
@@ -103,6 +107,7 @@ function processMarketData() {
 ```
 
 ### b) Deep Nesting
+
 ```typescript
 // ❌ BAD: 3+ levels of nesting
 if (user) {
@@ -126,7 +131,9 @@ if (!hasPermission) return
 
 // Do something
 ```
+
 ### c) Magic Numbers
+
 ```php
 // ❌ BAD: Unexplained numbers
 if ($retryCount > 3) { }

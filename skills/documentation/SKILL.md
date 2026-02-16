@@ -18,6 +18,7 @@ Documentation must always be updated after modifications or additions to the pro
 ## Documentation Index
 
 The AGENTS.md file contains a section called:
+
 ```markdown
 ## Documentation Index
 ```
@@ -29,6 +30,7 @@ This index lists all topic documentation files and groups them into categories.
 Documentation must be grouped into logical categories. Categories improve discoverability and reduce cognitive load for both developers and AI agents.
 
 Examples of categories:
+
 ```markdown
 ### Architecture
 ### Domain
@@ -43,6 +45,7 @@ Not all projects require all categories. Categories should reflect the structure
 Laravel projects may rely more heavily on domain and infrastructure topics, while more complex systems may require architecture and domain maps.
 
 ### Index Format
+
 ```markdown
 ## Documentation Index
 
@@ -59,6 +62,7 @@ Laravel projects may rely more heavily on domain and infrastructure topics, whil
 ```
 
 Each entry must include:
+
 - Title
 - Path
 - Short description explaining when to read it
@@ -66,13 +70,15 @@ Each entry must include:
 There is no limit to the number of topics.
 
 ## When to Create a New Topic
+
 Create a new topic if:
+
 - It is an important reusable part of the project consisting of multiple or large files.
 - It has business logic significance.
 - A concept has grown beyond 10 sentences in AGENTS.md.
 - It has pitfalls that need to be avoided.
 - Code was added or updated and no topic exists for that area yet.
-    - Example: If order status logic is added and no Orders topic exists, create one.
+  - Example: If order status logic is added and no Orders topic exists, create one.
 - It spans multiple files or has flow/lifecycle behavior.
 
 The goal is to document the entirety of the project. Nothing is too small to document.
@@ -86,7 +92,7 @@ If something can be fully explained in 1–5 sentences, it should not become a t
 Do not create a new topic if:
 
 - It is purely internal to another topic.
-    - Update that topic instead.
+  - Update that topic instead.
 - It does not introduce reusable logic, flow, or business significance.
 - It can be explained clearly in a few sentences.
 
@@ -152,6 +158,7 @@ Consistency across topic files is required.
 ## Depth and Completeness Standard
 
 A topic is considered complete when:
+
 - A new developer can modify or extend this area without scanning unrelated parts of the codebase.
 - A coding agent can implement changes in this domain with high confidence.
 - The lifecycle and data flow are fully explained.
@@ -172,6 +179,7 @@ Documentation must explain:
 Whenever implementation changes, documentation must be reviewed and updated.
 
 When updating documentation:
+
 - Read the entire topic file.
 - Verify consistency with the new implementation.
 - Update sections affected by the change.
@@ -196,6 +204,7 @@ AGENTS.md should contain:
 If a concept grows beyond 10 sentences inside AGENTS.md, it must be moved into a dedicated topic file.
 
 ## Core Principles
+
 - Documentation must evolve with the project.
 - Documentation must be structured and consistent.
 - Documentation must support both humans and AI agents.

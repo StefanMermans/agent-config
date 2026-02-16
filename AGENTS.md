@@ -20,4 +20,3 @@ These are global instructions. Skills and Project-specific AGENTS.md these instr
 6. Summarize
    - Provide: what changed, files touched, how to test, and any risks.
 7. Update documentation using the update-documentation skill
-

@@ -20,7 +20,9 @@ Analyze the conversation and code changes to extract:
 
 Create or update a skill in `~/.opencode/skills/<skill-name>/SKILL.md`
 Some good templates and ideas for skills are:
+
 ### a) coding guidline
+
 ```php
 // ❌ BAD: some bad practice
 some code here
@@ -30,13 +32,15 @@ some code here
 ```
 
 ### b) list of practices and things to keep in mind
+
 - Clean coding practice
 - Standard practice
-   - sub practice
-   - explaination
+  - sub practice
+  - explaination
 - document layout explaination
 
 ### c) example directory layout
+
 -- folder
    | -- sub folder
    |    | -- file
@@ -44,7 +48,9 @@ some code here
    | -- file
 
 ### d) code examples
+
 Always follow test pattern
+
 ```typescript
 const standardCodeAppraoch = () => {
   // some code here
@@ -58,6 +64,7 @@ const alternativeCodeApproach = () => {
 ### Patterns Discovered
 
 **Pattern: [Name]**
+
 - Context: When to use this pattern
 - Implementation: How to apply it
 - Example: Code snippet
@@ -73,4 +80,3 @@ const alternativeCodeApproach = () => {
 1. [Mistake description]
    - What went wrong
    - How to prevent it
-
