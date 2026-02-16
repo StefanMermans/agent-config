@@ -5,51 +5,200 @@ description: Always use this skill when you need to read, update or create docum
 
 # Documentation
 
-In the project specific AGENTS.md file there is a section called "Documentation Index" that lists all the documentation files in the project. Use this to find the correct file to update or create a new file if needed.
+This skill governs all documentation inside the docs/ directory and project specific AGENTS.md.
 
-## Create Documentation
+The goal is to document the entirety of the project in a structured, navigable, and agent-readable way. Documentation must allow:
 
-Create a new topic file in the docs/ directory with the following format:
+A developer to understand and modify a part of the system confidently.
 
+A coding agent to implement changes without scanning the entire repository.
+
+Documentation must always be updated after modifications or additions to the project.
+
+## Documentation Index
+
+The AGENTS.md file contains a section called:
+```markdown
+## Documentation Index
 ```
-# <title>
 
-<content>
+This index lists all topic documentation files and groups them into categories.
+
+### Categories Are Required
+
+Documentation must be grouped into logical categories. Categories improve discoverability and reduce cognitive load for both developers and AI agents.
+
+Examples of categories:
+```markdown
+### Architecture
+### Domain
+### Infrastructure
+### Integrations
+### Core Concepts
+### Background Processes
 ```
 
-This file should contain information about a specific topic. It should be comprehensive and complete. The goal of these documentation files is to provide complete context and information about a specific topic. So that a developer or AI agent can understand everything about a topic be reading that specific topic file.
+Not all projects require all categories. Categories should reflect the structure and complexity of the project.
+
+Laravel projects may rely more heavily on domain and infrastructure topics, while more complex systems may require architecture and domain maps.
+
+### Index Format
+```markdown
+## Documentation Index
+
+### Architecture
+- [System Overview](docs/system-overview.md): High-level explanation of the system structure and boundaries.
+- [Domain Map](docs/domain-map.md): Overview of major domains and how they interact.
+
+### Domain
+- [Orders](docs/orders.md): Order lifecycle, status transitions, pipelines, and related files.
+- [Authentication](docs/authentication.md): Authentication mechanisms, middleware, guards, and flows.
+
+### Infrastructure
+- [Queue System](docs/queue-system.md): Background job processing and workers.
+```
+
+Each entry must include:
+- Title
+- Path
+- Short description explaining when to read it
+
+There is no limit to the number of topics.
+
+## When to Create a New Topic
+Create a new topic if:
+- It is an important reusable part of the project consisting of multiple or large files.
+- It has business logic significance.
+- A concept has grown beyond 10 sentences in AGENTS.md.
+- It has pitfalls that need to be avoided.
+- Code was added or updated and no topic exists for that area yet.
+    - Example: If order status logic is added and no Orders topic exists, create one.
+- It spans multiple files or has flow/lifecycle behavior.
+
+The goal is to document the entirety of the project. Nothing is too small to document.
+
+However:
+
+If something can be fully explained in 1–5 sentences, it should not become a topic file and should instead be placed inside AGENTS.md.
+
+## When NOT to Create a New Topic
+
+Do not create a new topic if:
+
+- It is purely internal to another topic.
+    - Update that topic instead.
+- It does not introduce reusable logic, flow, or business significance.
+- It can be explained clearly in a few sentences.
+
+## Topic File Structure (Mandatory Template)
+
+Every topic file in docs/ must follow this structure:
+
+```markdown
+# <Topic Title>
+
+## Purpose
+What this topic represents and why it exists in the system.
+
+## High-Level Overview
+Conceptual explanation of how it works.
+
+## Architecture & Flow
+Step-by-step explanation of lifecycle and behavior.
+Explain how data moves through this part of the system.
+
+## Relevant Files
+- path/to/file.php — short description
+- path/to/another/file.php — short description
+- config/file.php — configuration if applicable
+
+List entry points clearly (controllers, commands, jobs, services, middleware, listeners, etc.).
+
+## Data Flow (If needed - Conceptual topics that aren't code don't necessarily have data flow)
+How data enters, is transformed, and exits this part of the system.
+
+## Configuration (If needed - not all topics have configuration)
+Environment variables, config files, feature flags (if applicable).
+
+## Common Use Cases
+1.
+2.
+3.
+
+## Example Usage (If Needed)
+Short illustrative example when necessary.
+
+## Edge Cases & Pitfalls
+- Potential failure modes
+- Common mistakes
+- Implicit constraints
+
+## Best Practices
+- Recommended usage patterns
+- Design constraints
+- Implementation guidance
+
+## When NOT To Use This (If needed - usefull for re-usable classes or functions)
+Scenarios where this approach should be avoided.
+
+## Related Topics
+Links to other documentation files.
+```
+
+All sections must be present unless clearly not applicable.
+
+Consistency across topic files is required.
+
+## Depth and Completeness Standard
+
+A topic is considered complete when:
+- A new developer can modify or extend this area without scanning unrelated parts of the codebase.
+- A coding agent can implement changes in this domain with high confidence.
+- The lifecycle and data flow are fully explained.
+- Entry points and relevant files are clearly listed.
+- Dependencies and interactions are understandable.
+
+Documentation must explain:
+
+- What it does
+- Why it exists
+- How it works
+- Where it lives
+- How it is used
+- When not to use it
 
 ## Updating Documentation
 
-Updating doucmentation is basically the same as creating documentation. When updating documentation, you should always update the documentation index in the AGENTS.md file to include the new or updated file.
+Whenever implementation changes, documentation must be reviewed and updated.
 
-## What should be in these topic files
+When updating documentation:
+- Read the entire topic file.
+- Verify consistency with the new implementation.
+- Update sections affected by the change.
+- Remove outdated or incorrect content.
+- Restructure sections if clarity or accuracy requires it.
+- Ensure no contradictions remain.
+- Update the Documentation Index if:
+- A new topic was created.
+- A topic was renamed.
+- Scope significantly changed.
+- Do not append blindly.
+- Refactor documentation when necessary to maintain clarity and correctness.
 
-The topic specific files should contain information about a specific topic. It should be comprehensive and complete. The goal of these documentation files is to provide complete context and information about a specific topic. So that a developer or AI agent can understand everything about a topic be reading that specific topic file.
-A topic can be anything from a concept used in the proejct to a specific class function or group of classes and functions. use a logical seperation of topics to make it easy to navigate and find the information you need. An example of a good topic is "Authentication" which would then explain how authentication works in the project and which files are relevant to it. It would contain and explaination of the available authentication methods, examples of how to authenticate and where to look for the authentication code.
-Another example would be a topic on "orders" which would explain how orders work in the project and which files are relevant to it. It would contain and explaination of the available order methods, examples of how to order and where to look for the order code. It would also contain information about the order process and how it works. the different pipelines an order could take and where to look for these pipelines.
+## Interaction Between AGENTS.md and Topics
 
-Among other things it should contain:
-- Pointers to files relevant to the topic which can be read if more specific information is needed.
-- Potential pitfalls and how to avoid them.
-- Common use cases and examples.
-- Best practices and recommendations.
-- Explaination for how and why something works the way it does.
-- How to use it and when to use it.
-- When not to use it.
+AGENTS.md should contain:
 
-These topic should avoid being overly verbose and instead provide a concise overview of the topic. It should be easy to read and understand. It should be easy to navigate and find the information you need.
-Avoid the the following:
-- Copying and pasting code.
-- Copying and pasting documentation from other sources.
-- Copying and pasting documentation from other files in the project.
+- Project-specific operational guidance.
+- Small explanations (1–5 sentences).
+- The Documentation Index.
 
-## Documentation index explained
+If a concept grows beyond 10 sentences inside AGENTS.md, it must be moved into a dedicated topic file.
 
-The documentation index section in the AGENTS.md file is a list of all the documentation files in the project by topic. Use it to quickly lookup information about a specific topic when it is relevant to the task.
-
-The documentation index should look like this. There is no limit to how long the documentation index can be or how many files there can be.
-```
-- [Topic Name 1](docs/topic-name-1.md): Description of what this file covers and when to read it.
-- [Topic Name 2](docs/topic-name-2.md): Description of what this file covers and when to read it.
-```
+## Core Principles
+- Documentation must evolve with the project.
+- Documentation must be structured and consistent.
+- Documentation must support both humans and AI agents.
+- Documentation must cover the entire system over time.
+- Topics must explain lifecycle and data flow.
+- Categories in the index are mandatory and improve navigation.
