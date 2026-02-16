@@ -1,6 +1,6 @@
 # Global guidelines
 
-This file contains global instructions. Project-specific AGENTS.md and skills extend this.
+These are global instructions. Skills and Project-specific AGENTS.md these instructions.
 
 ## Default Operating Procedure (always follow)
 
@@ -15,11 +15,9 @@ This file contains global instructions. Project-specific AGENTS.md and skills ex
    - Match existing architecture, naming, conventions, and libraries.
 4. Plan before changes
    - Brief plan (in chat) for non-trivial tasks.
-5. Implement minimal diff
-   - Only touch code required for the task.
-   - Avoid refactors unless needed to implement or to prevent obvious issues.
-6. Run relevant checks/tests
+5. Run relevant checks/tests
    - Use the project’s documented commands (see README / project AGENTS.md).
-7. Summarize
+6. Summarize
    - Provide: what changed, files touched, how to test, and any risks.
-8. Update documentation using the update-documentation skill
+7. Update documentation using the update-documentation skill
+
