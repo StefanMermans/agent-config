@@ -146,3 +146,11 @@ $DEBOUNCE_DELAY_MS = 500;
 if ($retryCount > $MAX_RETRIES) { }
 set_time_limit($DEBOUNCE_DELAY_MS);
 ```
+
+## 10) .env files
+
+.env.example files are a great way to document the environment variables required for a project. Populate them with happy defaults. if an environment variables should always be changed by the user, add it to the .env.example file without a value. For example:
+```.env.example
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=
+```
