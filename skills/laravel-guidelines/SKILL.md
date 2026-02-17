@@ -159,6 +159,43 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
 
 - **Prunable Trait**: Use the `Prunable` or `MassPrunable` trait for models that need periodic cleanup (e.g., logs, tokens). Define the `prunable()` query builder method to automate deletion logic.
 
+### Relations
+
+- **Prefer Relation Helpers**: Prefer relationship helper methods over setting foreign key columns manually. This keeps intent explicit and reduces coupling to schema details.
+
+    ```php
+    // Preferred
+    $model->relation()->attach($relation);
+
+    // Avoid when a relation helper exists
+    $model->relation_id = $relation->id;
+    $model->save();
+    ```
+
+- **Factories Should Build Relations, Not IDs**: In tests and seeders, prefer factory relationship helpers such as `has()`, `for()`, and `hasAttached()` over assigning `*_id` via `state()` or `create()`.
+
+    ```php
+    // Preferred
+    Model::factory()->for(Relation::factory())->create();
+
+    // Avoid when relation helpers can express the same intent
+    Model::factory()->state([
+        'relation_id' => Relation::factory(),
+    ])->create();
+    ```
+
+- **Use Relationship-Aware Query Helpers**: Prefer Eloquent relationship query helpers over manual foreign key filters when possible.
+
+    ```php
+    // Preferred
+    Order::query()->whereBelongsTo($customer)->get();
+
+    // Avoid when a relationship-aware helper exists
+    Order::query()->where('customer_id', $customer->id)->get();
+    ```
+
+- **Why**: Avoiding manual relation wiring in writes and queries (where possible) makes code more robust and allows it to keep working if underlying model relationships or key details change.
+
 ## 5. Security (Authorization)
 
 - **Policies**: Use Policies for all resource-based authorization.
