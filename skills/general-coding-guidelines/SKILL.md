@@ -1,9 +1,11 @@
 ---
 name: general-coding-guidelines
-description: Always use this skill when dealing with code of any kind. Wether writing, reading, reviewing or something else. If it's code use this skill.
+description: Always use this skill when writing or reviewing code.
 ---
 
 # General Coding Guidelines
+
+These are general guidelines that apply to all code. They need to be followed when creating and code and reviewed code is expected to follow these guidelines.
 
 ## 1) Coding Principles
 
