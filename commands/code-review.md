@@ -7,7 +7,9 @@ description: Comprehensive security and quality review of uncommitted changes
 
 Comprehensive security and quality review of uncommitted changes:
 
-1. Get changed files: git diff --name-only HEAD
+1. Get changed files from commit $1 up to and including commit $2 
+  - If no commit is provided, do not yet start a review, but ask the user where to look for changes (e.g. last commit, last 5 commits, mcp etc.)
+  - If only a single commit is provided, assume that the up to and including commit is HEAD
 2. For each changed file, check for:
 
 **Guideline adherence:**
