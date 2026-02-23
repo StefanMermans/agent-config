@@ -236,5 +236,35 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
 
 - **Generators**: If the project documents artisan usage, prefer the project’s generators and commands over creating files manually.
 
----
-**Note**: This guideline is a living document. Evolve it as the project matures and team patterns stabilize.
+
+## 8. Dependency injection
+
+- **Service Instantiation**: Do not manually create services that have dependency injection that should be resolved by Larvel (this is always the case for services). Instead realy on the global app(...) helper
+```php
+// Bad
+$service = new Service($dependency);
+
+// Good
+$service = app(Service::class);
+```
+
+## 9. Stricly typed code
+
+- **Classes over keyed arrays**: Prefer using classes over keyed arrays for data transfer objects. This improves type safety and makes code more readable. If the project has 
+laravel-data by spatie installed. Use that for Data classes.
+
+```php
+// Bad
+$data = [
+    'name' => 'John',
+    'email' => 'john@example.com',
+    'password' => 'secret',
+];
+
+// Good
+$data = new UserData(
+    name: 'John',
+    email: 'john@example.com',
+    password: 'secret',
+);
+```
