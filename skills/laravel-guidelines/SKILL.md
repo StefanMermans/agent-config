@@ -212,17 +212,16 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
     ```php
     public function test_user_can_register() {
         // Arrange
-        $data = ['name' => 'John', 'email' => 'john@example.com', 'password' => 'secret'];
+        $data = ['name' => fake()->name(), 'email' => fake()->safeEmail(), 'password' => fake()->password()];
         
         // Act
         $response = $this->post('/register', $data);
         
         // Assert
         $response->assertStatus(201);
-        $this->assertDatabaseHas('users', ['email' => 'john@example.com']);
+        $this->assertDatabaseHas(User::class, ['email' => $data['email']]);
     }
     ```
-
 - **Factories**: Prefer factories and builders for test setup over manual instantiation.
   - Use `state()` methods for variations (e.g., `User::factory()->admin()->create()`).
   - Avoid massive manual creation of dependencies.
@@ -230,7 +229,7 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
 - **Mocking**: Use Laravel's fakes for external services to keep tests fast and deterministic.
   - `Mail::fake()`, `Event::fake()`, `Notification::fake()`, `Queue::fake()`.
   - Assert against the fakes to verify interaction.
-- **Determinism**: Keep tests deterministic. Freeze time using `travelTo()` or similar helpers when testing time-sensitive features.
+- **Keep tests small**: Each function in a tests class should test one thing only!
 
 ## 7. Laravel Tooling
 
