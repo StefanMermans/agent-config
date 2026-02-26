@@ -1,9 +1,6 @@
 # Global guidelines
 
-These are global instructions. Project-specific AGENTS.md and skills extend these.
-
-## Default Operating Procedure (always follow)
-
+Default flow to always follow:
 1. Use appropriate guidelines skill based on the current project.
 2. Do what the user asks you to do.
 3. Run relevant checks/tests, Use the project’s documented commands (see README / project AGENTS.md).
