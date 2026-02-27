@@ -18,7 +18,7 @@ This document outlines best practices for building robust, maintainable, and mod
 
 ## 2. Modern PHP Features
 
-Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
+Leverage modern PHP features for cleaner, more expressive code:
 
 - **Constructor Property Promotion**: Reduce boilerplate in DTOs and Services.
 - **Readonly Properties**: Ensure immutability for value objects and DTOs.
@@ -72,11 +72,6 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
     ```
 
 - **Select Specific Columns**: When querying large tables, select only necessary columns to reduce memory usage.
-
-    ```php
-    User::select('id', 'name', 'email')->get();
-    ```
-
 - **Chunking**: Use `chunk()` or `cursor()` for initializing heavy processing on large datasets to keep memory usage low.
 
 ### Transactions
@@ -85,7 +80,7 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
 
 ### Typing
 
-- **Type Templating**: Use PHPDoc for type templating when necessary, especially for collections and relations, to aid static analysis and IDE autocompletion.
+- **Type Templating**: Use PHPDoc for type templating when necessary, especially for collections, arrays and relations, to aid static analysis and IDE autocompletion.
 
     ```php
     /** @var Collection<int, User> $users */
@@ -94,17 +89,6 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
 ### Scopes
 
 - **Local Scopes**: Encapsulate common query logic into reusable local scopes. Naming should be readable and expressive.
-
-    ```php
-    // Model
-    public function scopeActive(Builder $query): void {
-        $query->where('is_active', true);
-    }
-    
-    // Usage
-    User::active()->get();
-    ```
-
 - **Global Scopes**: Use sparingly. They apply to *all* queries on the model and can lead to unexpected behavior if hidden implementation details are forgotten.
 
 ### Observers
@@ -119,41 +103,6 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
 
 - **Use `$fillable`**: Explicitly strictly define which attributes can be mass-assigned. This is a security feature.
 - **Avoid `$guarded = []`**: While convenient, unguarding models globally opens up Mass Assignment Vulnerabilities if `all()` is passed from requests.
-
-### Updating Patterns
-
-- **Atomic Updates**: Use `update()` for simple updates based on validated data.
-
-    ```php
-    $user->update($validatedData);
-    ```
-
-- **Explicit Property Setting**: For complex logic, set properties explicitly then call `save()`. This makes changes tracked and explicit.
-
-    ```php
-    $user->status = UserStatus::Active;
-    $user->activated_at = now();
-    $user->save();
-    ```
-
-- **Mass Updates**: Use `update()` on a query builder relative to a scope for efficient bulk updates.
-  - *Warning*: This will **not** trigger Eloquent events or Observers. If you need side effects, you must trigger them manually or iterate (which is slower).
-
-    ```php
-    User::active()->where('last_login', '<', now()->subYear())->update(['status' => 'archived']);
-    ```
-
-### Enums & Casting
-
-- **Cast Enums**: Use native PHP Backed Enums for attribute casting.
-
-    ```php
-    protected $casts = [
-        'status' => UserStatus::class,
-    ];
-    ```
-
-- This ensures type safety and prevents invalid states from entering the application logic.
 
 ### Pruning
 
@@ -194,13 +143,10 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
     Order::query()->where('customer_id', $customer->id)->get();
     ```
 
-- **Why**: Avoiding manual relation wiring in writes and queries (where possible) makes code more robust and allows it to keep working if underlying model relationships or key details change.
-
 ## 5. Security (Authorization)
 
-- **Policies**: Use Policies for all resource-based authorization.
+- **Policies**: Use Policies for all authorization.
   - Create one policy per Model (e.g., `UserPolicy`, `PostPolicy`).
-  - Register them in `AuthServiceProvider` (usually auto-discovered).
 - **Gates**: Use Gates for simple, non-resource-specific actions (e.g., `Gate::define('access-dashboard', ...)`).
 - **Controller Authorization**: Use `$this->authorize()` (or `Gate::authorize()`) in controller methods, or middleware for route groups. Do **not** rely solely on UI hiding; backend verification is mandatory.
 
@@ -222,8 +168,9 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
         $this->assertDatabaseHas(User::class, ['email' => $data['email']]);
     }
     ```
-- **Factories**: Prefer factories and builders for test setup over manual instantiation.
-  - Use `state()` methods for variations (e.g., `User::factory()->admin()->create()`).
+
+- **Factories**: Use models factories and builders for test setup over manual instantiation.
+  - Use `state()` methods for variations (e.g., `User::factory()->admin()->create()` to create an admin user instead of `User::factory()->create(['is_admin' => true])`). It is encouraged to create your own custom re-usabled clearly named state functions on factories
   - Avoid massive manual creation of dependencies.
 - **Faking**: Always use `fake()` for values instead of hardcoding, unless a fixed value is absolutely required for the test logic.
 - **Mocking**: Use Laravel's fakes for external services to keep tests fast and deterministic.
@@ -233,12 +180,12 @@ Leverage modern PHP features (8.1/8.2+) for cleaner, more expressive code:
 
 ## 7. Laravel Tooling
 
-- **Generators**: If the project documents artisan usage, prefer the project’s generators and commands over creating files manually.
-
+- **Artisan make**: Prefer using artisan make `php artisan make:<what-to-make>` commands over creating files manually.
 
 ## 8. Dependency injection
 
 - **Service Instantiation**: Do not manually create services that have dependency injection that should be resolved by Larvel (this is always the case for services). Instead realy on the global app(...) helper
+
 ```php
 // Bad
 $service = new Service($dependency);
@@ -249,7 +196,7 @@ $service = app(Service::class);
 
 ## 9. Stricly typed code
 
-- **Classes over keyed arrays**: Prefer using classes over keyed arrays for data transfer objects. This improves type safety and makes code more readable. If the project has 
+- **Classes over keyed arrays**: Prefer using classes over keyed arrays for data transfer objects. This improves type safety and makes code more readable. If the project has
 laravel-data by spatie installed. Use that for Data classes.
 
 ```php
