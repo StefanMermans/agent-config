@@ -1,6 +1,6 @@
 ---
 name: laravel-guidelines
-description: When dealing with a Laravel project, these guidelines must always be followed.
+description: When writing or reviewing code in a Laravel project, these guidelines must always be followed.
 ---
 
 # Laravel Guidelines
@@ -152,31 +152,48 @@ Leverage modern PHP features for cleaner, more expressive code:
 
 ## 6. Testing
 
-- **Runner**: Prefer Laravel’s default test runner and conventions.
-- **AAA Pattern**: Structure all tests using **Arrange, Act, Assert**.
+Structure all tests using **Arrange, Act, Assert**.
+```php
+public function test_user_can_register() {
+    // Arrange
+    $data = ['name' => fake()->name(), 'email' => fake()->safeEmail(), 'password' => fake()->password()];
+    
+    // Act
+    $response = $this->post('/register', $data);
+    
+    // Assert
+    $response->assertStatus(201);
+    $this->assertDatabaseHas(User::class, ['email' => $data['email']]);
+}
+```
 
-    ```php
-    public function test_user_can_register() {
-        // Arrange
-        $data = ['name' => fake()->name(), 'email' => fake()->safeEmail(), 'password' => fake()->password()];
-        
-        // Act
-        $response = $this->post('/register', $data);
-        
-        // Assert
-        $response->assertStatus(201);
-        $this->assertDatabaseHas(User::class, ['email' => $data['email']]);
-    }
-    ```
+Use models factories and builders for test setup over manual instantiation.
+Use `state()` methods for variations (e.g., `User::factory()->admin()->create()`) to create test data.
+```php
+// Bad
+Order::factory()->create([
+    'delivery_status' => 'delivered',
+    'customer_id' => $customer->id,
+    'product_id' => $product->id,
+    'paid' => true,
+])
 
-- **Factories**: Use models factories and builders for test setup over manual instantiation.
-  - Use `state()` methods for variations (e.g., `User::factory()->admin()->create()` to create an admin user instead of `User::factory()->create(['is_admin' => true])`). It is encouraged to create your own custom re-usabled clearly named state functions on factories
-  - Avoid massive manual creation of dependencies.
-- **Faking**: Always use `fake()` for values instead of hardcoding, unless a fixed value is absolutely required for the test logic.
-- **Mocking**: Use Laravel's fakes for external services to keep tests fast and deterministic.
-  - `Mail::fake()`, `Event::fake()`, `Notification::fake()`, `Queue::fake()`.
-  - Assert against the fakes to verify interaction.
-- **Keep tests small**: Each function in a tests class should test one thing only!
+// Good
+Order::factory()->delivered()->paid()->for($customer)->for($product)->create();
+```
+  
+Always use `fake()` for values instead of hardcoding, unless a fixed value is absolutely required for the test logic.
+
+Each function in a tests class should test one thing only!
+
+When using database asserts like `assertDatabaseHas` when possible do **not** hardcode the database table, but use the model class instead 
+```php
+// Bad
+$this->assertDatabaseHas('users', ...);
+
+// Good
+$this->assertDatabaseHas(User::class, ...);
+```
 
 ## 7. Laravel Tooling
 
