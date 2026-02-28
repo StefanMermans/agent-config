@@ -1,6 +1,6 @@
 ---
 name: general-coding-guidelines
-description: Always follow these guidelines when writing or reviewing code or writing tests.
+description: This skill is always useful when writing or reviewing code or tests in any language or framework.
 ---
 
 # General Coding Guidelines
