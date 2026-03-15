@@ -1,6 +1,6 @@
 ---
 name: general-coding-guidelines
-description: This skill is always useful when writing or reviewing code or tests in any language or framework.
+description: This skill must always be used when writing or reviewing code or tests in any language or framework.
 ---
 
 # General Coding Guidelines
