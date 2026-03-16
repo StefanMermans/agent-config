@@ -10,7 +10,8 @@ Comprehensive security and quality review of uncommitted changes:
 1. Get changed files from commit $1 up to and including commit $2 
   - If no commit is provided, do not yet start a review, but ask the user where to look for changes (e.g. last commit, last 5 commits, mcp etc.)
   - If only a single commit is provided, assume that the up to and including commit is HEAD
-2. For each changed file, check for:
+2. Use relevant skills
+3. For each changed file, check for:
 
 **Guideline adherence:**
 
@@ -27,8 +28,6 @@ Comprehensive security and quality review of uncommitted changes:
 
 **Code Quality (HIGH):**
 
-- Functions > 50 lines
-- Files > 800 lines
 - Nesting depth > 4 levels
 - Missing error handling
 - Missing tests for new code
