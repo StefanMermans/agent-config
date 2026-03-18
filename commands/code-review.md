@@ -7,43 +7,7 @@ description: Comprehensive security and quality review of uncommitted changes
 
 Comprehensive security and quality review of uncommitted changes:
 
-1. Get changed files from commit $1 up to and including commit $2 
-  - If no commit is provided, do not yet start a review, but ask the user where to look for changes (e.g. last commit, last 5 commits, mcp etc.)
-  - If only a single commit is provided, assume that the up to and including commit is HEAD
-2. Use relevant skills
-3. For each changed file, check for:
-
-**Guideline adherence:**
-
-- Use applicable guidelines skills to determine the guidelines that should be followed
-
-**Security Issues (CRITICAL):**
-
-- Hardcoded credentials, API keys, tokens
-- SQL injection vulnerabilities
-- XSS vulnerabilities
-- Missing input validation
-- Insecure dependencies
-- Path traversal risks
-
-**Code Quality (HIGH):**
-
-- Nesting depth > 4 levels
-- Missing error handling
-- Missing tests for new code
-  - We require full test coverage for all code paths and edge-cases
-- TODO/FIXME comments
-  - These should never be present in the code an should instead be addressed or a new ticket created
-
-**Best Practices (MEDIUM):**
-
-- Mutation patterns (use immutable instead)
-- Accessibility issues (a11y)
-
-1. Generate report with:
-   - Severity: CRITICAL, HIGH, MEDIUM, LOW
-   - File location and line numbers
-   - Issue description
-   - Suggested fix
-
-Never approve code with security vulnerabilities!
+1. Figure out what changes you must review based on user request or by looking at the git status. if there is any doubt ask the user to clarify which files or changes they want you to review.
+2. Do not review the code yourself, instead use the Code-reviewer sub agent to look at the code and do the review.
+3. Start the Code-reviewer sub agent to do the review. which must give you a report of the review. Never approve code with security vulnerabilities!
+4. After the sub agent finishes present the report to the user, you may omit previously addressed issues.
