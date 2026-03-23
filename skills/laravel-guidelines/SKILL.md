@@ -153,6 +153,7 @@ Leverage modern PHP features for cleaner, more expressive code:
 ## 6. Testing
 
 Structure all tests using **Arrange, Act, Assert**.
+
 ```php
 public function test_user_can_register() {
     // Arrange
@@ -169,6 +170,7 @@ public function test_user_can_register() {
 
 Use models factories and builders for test setup over manual instantiation.
 Use `state()` methods for variations (e.g., `User::factory()->admin()->create()`) to create test data.
+
 ```php
 // Bad
 Order::factory()->create([
@@ -186,7 +188,8 @@ Always use `fake()` for values instead of hardcoding, unless a fixed value is ab
 
 Each function in a tests class should test one thing only!
 
-When using database asserts like `assertDatabaseHas` when possible do **not** hardcode the database table, but use the model class instead 
+When using database asserts like `assertDatabaseHas` when possible do **not** hardcode the database table, but use the model class instead
+
 ```php
 // Bad
 $this->assertDatabaseHas('users', ...);
@@ -231,3 +234,7 @@ $data = new UserData(
     password: 'secret',
 );
 ```
+
+## 10. Database
+
+- Never run `migrate:fresh` unless the user explicitly requests it! Migrating the database fresh is a destructive command that will result in dataloss. Warn the user against this if they want you to run it.
