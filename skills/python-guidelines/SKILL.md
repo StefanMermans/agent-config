@@ -7,7 +7,7 @@ description: When dealing with python code, these guidelines must always be foll
 
 ## Logging
 
-When calling a logger by for example calling logger.infog(...) or logger.debug(...) etc..
+When calling a logger by for example calling `logger.infog(...)` or `logger.debug(...)` etc..
 always use lazy string formatting when interpolating variables for performance.
 
 Bad example. Must avoid:
