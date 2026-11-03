@@ -35,6 +35,7 @@ These are general guidelines that apply to all code. They need to be followed wh
 - Inline values only if it improves clarity and avoids noise.
 - Extract a function when:
   - a block repeats,
+  - a block is large,
   - a block is hard to name inline,
   - it improves testability.
 
@@ -156,3 +157,10 @@ set_time_limit($DEBOUNCE_DELAY_MS);
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=
 ```
+
+## 11) Testing
+
+Always write tests. If you're modifiying an existing body of code that does not have tests yet add them before continuing to ensure no regressions.
+
+- Every code branch MUST be fully tested
+- ALL edge cases MUST be fully tested
